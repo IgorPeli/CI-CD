@@ -10,7 +10,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Listar arquivos disponíveis (debug)
+    - name: Checkout do código
+      uses: actions/checkout@v3
+
+    - name: Verificar arquivos (debug)
       run: ls -la
 
     - name: Enviar arquivos via SCP
