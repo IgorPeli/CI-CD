@@ -44,7 +44,7 @@ Este repositório contém toda a infraestrutura como código (IaC) necessária p
 
 - Faça login no [AWS Console](https://console.aws.amazon.com/)
 - Vá em **CloudFormation > Create Stack**
-- Use o [repositório](https://github.com/IgorPeli/AWS-STACK).
+- Use o [repositório](https://github.com/IgorPeli/AWS-STACK) para infraestrutura na AWS.
 - Certifique-se de já ter um par de chaves `ssh-key` criado no EC2 (ou ajuste o campo `KeyName` no template)
 
 ### 2. 🔐 Configurar secrets no GitHub
