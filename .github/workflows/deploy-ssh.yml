@@ -10,13 +10,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Listar arquivos disponíveis (debug)
+      run: ls -la
+
     - name: Enviar arquivos via SCP
       uses: appleboy/scp-action@v0.1.4
       with:
         host: ${{ secrets.EC2_HOST }}
         username: ec2-user
         key: ${{ secrets.EC2_SSH_KEY }}
-        source: "*"
+        source: "**/*"
         target: "/home/ec2-user/app"
 
     - name: Executar deploy remoto via SSH
