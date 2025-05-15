@@ -13,7 +13,7 @@ jobs:
     - name: Checkout do código
       uses: actions/checkout@v3
 
-    - name: Verificar arquivos (debug)
+    - name: Verificar arquivos locais (debug)
       run: ls -la
 
     - name: Enviar arquivos via SCP
@@ -22,8 +22,9 @@ jobs:
         host: ${{ secrets.EC2_HOST }}
         username: ec2-user
         key: ${{ secrets.EC2_SSH_KEY }}
-        source: "**/*"
+        source: "./"
         target: "/home/ec2-user/app"
+        strip_components: 1   # 🔧 evita subpasta como 'CI-CD' na EC2
 
     - name: Executar deploy remoto via SSH
       uses: appleboy/ssh-action@v0.1.10
@@ -32,6 +33,8 @@ jobs:
         username: ec2-user
         key: ${{ secrets.EC2_SSH_KEY }}
         script: |
+          echo "🗂️ Conteúdo recebido na EC2:"
+          ls -la /home/ec2-user/app
           cd /home/ec2-user/app
           chmod +x deploy.sh
           ./deploy.sh
