@@ -2,13 +2,20 @@
 
 echo "Subindo containers com Docker Compose..."
 
-# Verifica se docker compose (plugin v2) está disponível
-if command -v docker compose &> /dev/null; then
+# Verifica se 'docker compose' (plugin) está disponível
+if command -v docker &> /dev/null && docker compose version &> /dev/null; then
+  echo "→ Usando docker compose (plugin v2)"
   docker compose up -d --build
-# Se não tiver o plugin v2, tenta o docker-compose clássico
+
+# Verifica se 'docker-compose' clássico está disponível
 elif command -v docker-compose &> /dev/null; then
+  echo "→ Usando docker-compose (clássico)"
   docker-compose up -d --build
+
 else
-  echo "❌ Docker Compose não está instalado nesta máquina."
+  echo "Nenhuma versão do Docker Compose encontrada."
+  echo "Instale com:"
+  echo "curl -SL https://github.com/docker/compose/releases/download/v2.23.3/docker-compose-linux-x86_64 -o ~/.docker/cli-plugins/docker-compose"
+  echo "chmod +x ~/.docker/cli-plugins/docker-compose"
   exit 1
 fi
